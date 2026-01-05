@@ -311,6 +311,12 @@ Rails.application.routes.draw do
                 get :orders
               end
             end
+            resource :mercado_livre, controller: 'mercado_livre', only: [:destroy] do
+              collection do
+                post :auth
+                get :orders
+              end
+            end
             resource :linear, controller: 'linear', only: [] do
               collection do
                 delete :destroy
@@ -561,6 +567,10 @@ Rails.application.routes.draw do
   end
 
   namespace :shopify do
+    resource :callback, only: [:show]
+  end
+
+  namespace :mercado_livre do
     resource :callback, only: [:show]
   end
 

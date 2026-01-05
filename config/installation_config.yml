@@ -15,7 +15,7 @@
 
 # ------- Branding Related Config ------- #
 - name: INSTALLATION_NAME
-  value: 'Chatwoot'
+  value: 'Automação Varejo'
   display_title: 'Installation Name'
   description: 'The installation wide name that would be used in the dashboard, title etc.'
 - name: LOGO_THUMBNAIL
@@ -39,7 +39,7 @@
   display_title: 'Widget Brand URL'
   description: 'The URL that would be used in the widget under the section “Powered By”'
 - name: BRAND_NAME
-  value: 'Chatwoot'
+  value: 'Automação Varejo'
   display_title: 'Brand Name'
   description: 'The name that would be used in emails and the widget'
 - name: TERMS_URL
@@ -52,8 +52,8 @@
   description: 'The privacy policy URL displayed in the app'
 - name: DISPLAY_MANIFEST
   value: true
-  display_title: 'Chatwoot Metadata'
-  description: 'Display default Chatwoot metadata like favicons and upgrade warnings'
+  display_title: 'Automação Varejo Metadata'
+  description: 'Display default Automação Varejo metadata like favicons and upgrade warnings'
   type: boolean
 # ------- End of Branding Related Config ------- #
 
@@ -378,6 +378,19 @@
   locked: false
   type: secret
 # ------- End of Shopify Related Config ------- #
+
+# ------- Mercado Livre Integration Config ------- #
+- name: MERCADO_LIVRE_CLIENT_ID
+  display_title: 'Mercado Livre Client ID'
+  description: 'The Client ID from your Mercado Livre Application'
+  locked: false
+  type: secret
+- name: MERCADO_LIVRE_CLIENT_SECRET
+  display_title: 'Mercado Livre Client Secret'
+  description: 'The Client Secret from your Mercado Livre Application'
+  locked: false
+  type: secret
+# ------- End of Mercado Livre Related Config ------- #
 
 # ------- Instagram Channel Related Config ------- #
 - name: INSTAGRAM_APP_ID

@@ -46,3 +46,4 @@ LANGUAGES_CONFIG = {
 }.filter { |_key, val| val[:enabled] }.freeze
 
 Rails.configuration.i18n.available_locales = LANGUAGES_CONFIG.map { |_index, lang| lang[:iso_639_1_code].to_sym }
+Rails.configuration.i18n.default_locale = :pt_BR

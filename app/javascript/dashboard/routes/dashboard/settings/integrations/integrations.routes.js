@@ -10,6 +10,7 @@ import SettingsContent from '../Wrapper.vue';
 import Linear from './Linear.vue';
 import Notion from './Notion.vue';
 import Shopify from './Shopify.vue';
+import MercadoLivre from './MercadoLivre.vue';
 
 export default {
   routes: [
@@ -104,6 +105,16 @@ export default {
           path: 'shopify',
           name: 'settings_integrations_shopify',
           component: Shopify,
+          meta: {
+            featureFlag: FEATURE_FLAGS.INTEGRATIONS,
+            permissions: ['administrator'],
+          },
+          props: route => ({ error: route.query.error }),
+        },
+        {
+          path: 'mercado_livre',
+          name: 'settings_integrations_mercado_livre',
+          component: MercadoLivre,
           meta: {
             featureFlag: FEATURE_FLAGS.INTEGRATIONS,
             permissions: ['administrator'],

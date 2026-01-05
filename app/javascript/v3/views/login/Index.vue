@@ -1,22 +1,19 @@
 <script>
 // utils and composables
-import { login } from '../../api/auth';
-import { mapGetters } from 'vuex';
-import { useAlert } from 'dashboard/composables';
-import { required, email } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
+import { email, required } from '@vuelidate/validators';
+import { useAlert } from 'dashboard/composables';
 import { SESSION_STORAGE_KEYS } from 'dashboard/constants/sessionStorage';
-import SessionStorage from 'shared/helpers/sessionStorage';
 import { useBranding } from 'shared/composables/useBranding';
+import SessionStorage from 'shared/helpers/sessionStorage';
+import { mapGetters } from 'vuex';
+import { login } from '../../api/auth';
 
 // components
-import SimpleDivider from '../../components/Divider/SimpleDivider.vue';
-import FormInput from '../../components/Form/Input.vue';
-import GoogleOAuthButton from '../../components/GoogleOauth/Button.vue';
-import Spinner from 'shared/components/Spinner.vue';
-import Icon from 'dashboard/components-next/icon/Icon.vue';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import MfaVerification from 'dashboard/components/auth/MfaVerification.vue';
+import Spinner from 'shared/components/Spinner.vue';
+import FormInput from '../../components/Form/Input.vue';
 
 const ERROR_MESSAGES = {
   'no-account-found': 'LOGIN.OAUTH.NO_ACCOUNT_FOUND',
@@ -30,12 +27,9 @@ const IMPERSONATION_URL_SEARCH_KEY = 'impersonation';
 export default {
   components: {
     FormInput,
-    GoogleOAuthButton,
     Spinner,
     NextButton,
-    SimpleDivider,
     MfaVerification,
-    Icon,
   },
   props: {
     ssoAuthToken: { type: String, default: '' },
@@ -226,17 +220,17 @@ export default {
       <img
         :src="globalConfig.logo"
         :alt="globalConfig.installationName"
-        class="block w-auto h-8 mx-auto dark:hidden"
+        class="block w-auto h-16 mx-auto dark:hidden"
       />
       <img
         v-if="globalConfig.logoDark"
         :src="globalConfig.logoDark"
         :alt="globalConfig.installationName"
-        class="hidden w-auto h-8 mx-auto dark:block"
+        class="hidden w-auto h-16 mx-auto dark:block"
       />
-      <h2 class="mt-6 text-3xl font-medium text-center text-n-slate-12">
+      <!-- <h2 class="mt-6 text-3xl font-medium text-center text-n-slate-12">
         {{ replaceInstallationName($t('LOGIN.TITLE')) }}
-      </h2>
+      </h2> -->
       <p v-if="showSignupLink" class="mt-3 text-sm text-center text-n-slate-11">
         {{ $t('COMMON.OR') }}
         <router-link to="auth/signup" class="lowercase text-link text-n-brand">
@@ -264,7 +258,7 @@ export default {
       }"
     >
       <div v-if="!email">
-        <div class="flex flex-col gap-4">
+        <!-- <div class="flex flex-col gap-4">
           <GoogleOAuthButton v-if="showGoogleOAuth" />
           <div v-if="showSamlLogin" class="text-center">
             <router-link
@@ -285,7 +279,7 @@ export default {
             :label="$t('COMMON.OR')"
             class="uppercase"
           />
-        </div>
+        </div> -->
         <form class="space-y-5" @submit.prevent="submitFormLogin">
           <FormInput
             v-model="credentials.email"

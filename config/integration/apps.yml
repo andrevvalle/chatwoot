@@ -208,6 +208,13 @@ shopify:
   hook_type: account
   allow_multiple_hooks: false
 
+mercado_livre:
+  id: mercado_livre
+  logo: mercado_livre.png
+  i18n_key: mercado_livre
+  hook_type: account
+  allow_multiple_hooks: false
+
 leadsquared:
   id: leadsquared
   feature_flag: crm_integration

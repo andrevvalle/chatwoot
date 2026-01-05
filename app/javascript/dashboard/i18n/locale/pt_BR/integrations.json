@@ -15,8 +15,15 @@
       },
       "ERROR": "There was an error connecting to Shopify. Please try again or contact support if the issue persists."
     },
+    "MERCADO_LIVRE": {
+      "DELETE": {
+        "TITLE": "Excluir Integração com Mercado Livre",
+        "MESSAGE": "Tem certeza de que deseja excluir a integração com o Mercado Livre?"
+      },
+      "ERROR": "Ocorreu um erro ao conectar com o Mercado Livre. Por favor, tente novamente ou entre em contato com o suporte se o problema persistir."
+    },
     "HEADER": "Integrações",
-    "DESCRIPTION": "Chatwoot se integra com várias ferramentas e serviços para melhorar a eficiência de seu time. Explore a lista abaixo para configurar seus aplicativos favoritos.",
+    "DESCRIPTION": "Automação Varejo se integra com várias ferramentas e serviços para melhorar a eficiência de seu time. Explore a lista abaixo para configurar seus aplicativos favoritos.",
     "LEARN_MORE": "Aprenda mais sobre integrações",
     "LOADING": "Obtendo integrações",
     "CAPTAIN": {

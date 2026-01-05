@@ -38,6 +38,10 @@ class IntegrationsAPI extends ApiClient {
       shop_domain: shopDomain,
     });
   }
+
+  connectMercadoLivre() {
+    return axios.post(`${this.baseUrl()}/integrations/mercado_livre/auth`);
+  }
 }
 
 export default new IntegrationsAPI();

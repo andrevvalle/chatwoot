@@ -310,6 +310,10 @@ pt_BR:
       name: 'Shopify'
       short_description: 'Acessar detalhes do pedido e dados de clientes da sua loja Shopify.'
       description: 'Conecte sua loja Shopify para acessar detalhes de pedidos, informações de clientes e dados de produtos diretamente em suas conversas e ajudar sua equipe de suporte a fornecer um atendimento mais rápido e contextual aos seus clientes.'
+    mercado_livre:
+      name: 'Mercado Livre'
+      short_description: 'Acesse detalhes de pedidos e dados de clientes da sua conta do Mercado Livre.'
+      description: 'Conecte sua conta de vendedor do Mercado Livre para acessar detalhes de pedidos, informações de compradores e dados de vendas diretamente em suas conversas e ajudar sua equipe de suporte a fornecer um atendimento mais rápido e contextual aos seus clientes.'
     leadsquared:
       name: 'LeadSquared'
       short_description: 'Sincronize seus contatos e conversas com LeadSquared CRM.'
