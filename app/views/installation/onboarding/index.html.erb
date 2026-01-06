@@ -25,49 +25,49 @@
 
               <div>
                 <label for="name" class="flex justify-between text-sm font-medium leading-6 text-slate-900 dark:text-white">
-                  Name
+                  Nome
                 </label>
                 <div class="mt-1">
-                  <%= text_field :user, :name, placeholder: "Enter your full name. eg: Bruce Wayne", required: true, class: "block w-full rounded-md border-0 px-3 py-3 appearance-none shadow-sm ring-1 ring-inset text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-woot-500 sm:text-sm sm:leading-6 outline-none dark:bg-slate-700 dark:ring-slate-600 dark:focus:ring-woot-500 ring-slate-200" %>
+                  <%= text_field :user, :name, placeholder: "Digite seu nome completo", required: true, class: "block w-full rounded-md border-0 px-3 py-3 appearance-none shadow-sm ring-1 ring-inset text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-woot-500 sm:text-sm sm:leading-6 outline-none dark:bg-slate-700 dark:ring-slate-600 dark:focus:ring-woot-500 ring-slate-200" %>
                 </div>
               </div>
 
               <div>
                 <label for="name" class="flex justify-between text-sm font-medium leading-6 text-slate-900 dark:text-white">
-                  Company Name
+                  Nome da Empresa
                 </label>
                 <div class="mt-1">
-                  <%= text_field :user, :company, placeholder: "Enter your company name. eg: Wayne Enterprises", required: true, class: "block w-full rounded-md border-0 px-3 py-3 appearance-none shadow-sm ring-1 ring-inset text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-woot-500 sm:text-sm sm:leading-6 outline-none dark:bg-slate-700 dark:ring-slate-600 dark:focus:ring-woot-500 ring-slate-200" %>
+                  <%= text_field :user, :company, placeholder: "Digite o nome da sua empresa", required: true, class: "block w-full rounded-md border-0 px-3 py-3 appearance-none shadow-sm ring-1 ring-inset text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-woot-500 sm:text-sm sm:leading-6 outline-none dark:bg-slate-700 dark:ring-slate-600 dark:focus:ring-woot-500 ring-slate-200" %>
                 </div>
               </div>
 
               <div>
                 <label for="name" class="flex justify-between text-sm font-medium leading-6 text-slate-900 dark:text-white">
-                  Work Email
+                  E-mail de Trabalho
                 </label>
                 <div class="mt-1">
-                  <%= email_field :user, :email, placeholder: "Enter your work email address. eg: bruce@wayne.enterprises", required: true, class: "block w-full rounded-md border-0 px-3 py-3 appearance-none shadow-sm ring-1 ring-inset text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-woot-500 sm:text-sm sm:leading-6 outline-none dark:bg-slate-700 dark:ring-slate-600 dark:focus:ring-woot-500 ring-slate-200" %>
+                  <%= email_field :user, :email, placeholder: "Digite seu e-mail de trabalho", required: true, class: "block w-full rounded-md border-0 px-3 py-3 appearance-none shadow-sm ring-1 ring-inset text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-woot-500 sm:text-sm sm:leading-6 outline-none dark:bg-slate-700 dark:ring-slate-600 dark:focus:ring-woot-500 ring-slate-200" %>
                 </div>
               </div>
 
               <div>
                 <label for="name" class="flex justify-between text-sm font-medium leading-6 text-slate-900 dark:text-white">
-                  Password
+                  Senha
                 </label>
                 <div class="mt-1">
-                  <%= password_field :user, :password, placeholder: "Enter a password with 6 characters or more.", required: true, class: "block w-full rounded-md border-0 px-3 py-3 appearance-none shadow-sm ring-1 ring-inset text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-woot-500 sm:text-sm sm:leading-6 outline-none dark:bg-slate-700 dark:ring-slate-600 dark:focus:ring-woot-500 ring-slate-200" %>
+                  <%= password_field :user, :password, placeholder: "Digite uma senha com 6 ou mais caracteres", required: true, class: "block w-full rounded-md border-0 px-3 py-3 appearance-none shadow-sm ring-1 ring-inset text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-woot-500 sm:text-sm sm:leading-6 outline-none dark:bg-slate-700 dark:ring-slate-600 dark:focus:ring-woot-500 ring-slate-200" %>
                 </div>
               </div>
 
-              <div class="text-sm text-slate-900">
+              <div class="text-sm text-slate-900 dark:text-white">
                 <%= check_box_tag "subscribe_to_updates", 'true', true %>
                 <label class="ml-2" for="subscribe_to_updates">
-                  Subscribe to release notes, newsletters & product feedback surveys.
+                  Receber novidades, notas de versão e pesquisas de feedback.
                 </label>
               </div>
 
               <button type="submit" class="flex items-center w-full justify-center rounded-md bg-woot-500 py-3 px-3 text-base font-medium text-white shadow-sm hover:bg-woot-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-woot-500 cursor-pointer">
-                Finish Setup
+                Finalizar Configuração
               </button>
             </div>
             <% end %>
