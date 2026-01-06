@@ -4,19 +4,19 @@ namespace :branding do
   task update: :environment do
     configurable_items = {
       # The installation wide name that would be used in the dashboard, title etc.
-      'INSTALLATION_NAME' => 'Chatwoot',
+      'INSTALLATION_NAME' => 'Automação Varejo',
       # The thumbnail that would be used for favicon (512px X 512px)
       'LOGO_THUMBNAIL' => '/brand-assets/logo_thumbnail.svg',
       # The logo that would be used on the dashboard, login page etc.
       'LOGO' => '/brand-assets/logo.svg',
       # The logo that would be used on the dashboard, login page etc. for dark mode
       'LOGO_DARK' => '/brand-assets/logo_dark.svg',
-      # The URL that would be used in emails under the section “Powered By”
+      # The URL that would be used in emails under the section "Powered By"
       'BRAND_URL' => 'https://www.chatwoot.com',
-      # The URL that would be used in the widget under the section “Powered By”
+      # The URL that would be used in the widget under the section "Powered By"
       'WIDGET_BRAND_URL' => 'https://www.chatwoot.com',
       # The name that would be used in emails and the widget
-      'BRAND_NAME' => 'Chatwoot',
+      'BRAND_NAME' => 'Automação Varejo',
       # The terms of service URL displayed in Signup Page
       'TERMS_URL' => 'https://www.chatwoot.com/terms-of-service',
       # The privacy policy URL displayed in the app
