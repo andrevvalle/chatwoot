@@ -591,6 +591,12 @@ const menuItems = computed(() => {
           icon: 'i-lucide-credit-card',
           to: accountScopedRoute('billing_settings_index'),
         },
+        {
+          name: 'Settings Product Catalog',
+          label: t('SIDEBAR.PRODUCT_CATALOG'),
+          icon: 'i-lucide-shopping-bag',
+          to: accountScopedRoute('product_catalog_index'),
+        },
       ],
     },
   ];

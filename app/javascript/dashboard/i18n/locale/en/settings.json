@@ -400,7 +400,12 @@
       "INFO_SHORT": "Automatically mark offline when you aren't using the app."
     },
     "DOCS": "Read docs",
-    "SECURITY": "Security"
+    "SECURITY": "Security",
+    "PRODUCT_CATALOG": "Product Catalog"
+  },
+  "PRODUCT_CATALOG": {
+    "TITLE": "Product Catalog",
+    "DESCRIPTION": "View and manage the product catalog."
   },
   "BILLING_SETTINGS": {
     "TITLE": "Billing",
