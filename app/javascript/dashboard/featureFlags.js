@@ -45,11 +45,5 @@ export const FEATURE_FLAGS = {
   COMPANIES: 'companies',
 };
 
-export const PREMIUM_FEATURES = [
-  FEATURE_FLAGS.SLA,
-  FEATURE_FLAGS.CAPTAIN,
-  FEATURE_FLAGS.CUSTOM_ROLES,
-  FEATURE_FLAGS.AUDIT_LOGS,
-  FEATURE_FLAGS.HELP_CENTER,
-  FEATURE_FLAGS.SAML,
-];
+// All features unlocked - no premium restrictions
+export const PREMIUM_FEATURES = [];

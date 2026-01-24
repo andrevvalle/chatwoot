@@ -15,17 +15,10 @@ const props = defineProps({
 
 const emit = defineEmits(['channelItemClick']);
 
-const hasFbConfigured = computed(() => {
-  return window.chatwootConfig?.fbAppId;
-});
-
-const hasInstagramConfigured = computed(() => {
-  return window.chatwootConfig?.instagramAppId;
-});
-
-const hasTiktokConfigured = computed(() => {
-  return window.chatwootConfig?.tiktokAppId;
-});
+// All channels enabled - no app ID requirements
+const hasFbConfigured = computed(() => true);
+const hasInstagramConfigured = computed(() => true);
+const hasTiktokConfigured = computed(() => true);
 
 const isActive = computed(() => {
   const { key } = props.channel;

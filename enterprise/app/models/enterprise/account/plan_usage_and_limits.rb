@@ -5,12 +5,13 @@ module Enterprise::Account::PlanUsageAndLimits
   CAPTAIN_DOCUMENTS_USAGE = 'captain_documents_usage'.freeze
 
   def usage_limits
+    # All limits unlocked - no restrictions
     {
-      agents: agent_limits.to_i,
-      inboxes: get_limits(:inboxes).to_i,
+      agents: ChatwootApp.max_limit,
+      inboxes: ChatwootApp.max_limit,
       captain: {
-        documents: get_captain_limits(:documents),
-        responses: get_captain_limits(:responses)
+        documents: { total_count: ChatwootApp.max_limit, current_available: ChatwootApp.max_limit, consumed: 0 },
+        responses: { total_count: ChatwootApp.max_limit, current_available: ChatwootApp.max_limit, consumed: 0 }
       }
     }
   end
