@@ -400,7 +400,12 @@
       "INFO_SHORT": "Marcar off-line automaticamente quando não estiver usando o aplicativo."
     },
     "DOCS": "Ler documentos",
-    "SECURITY": "Segurança"
+    "SECURITY": "Segurança",
+    "PRODUCT_CATALOG": "Catálogo de Produtos"
+  },
+  "PRODUCT_CATALOG": {
+    "TITLE": "Catálogo de Produtos",
+    "DESCRIPTION": "Visualize e gerencie o catálogo de produtos."
   },
   "BILLING_SETTINGS": {
     "TITLE": "Cobrança",

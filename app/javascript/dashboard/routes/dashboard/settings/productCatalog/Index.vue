@@ -13,7 +13,6 @@ const catalogUrl =
     <BaseSettingsHeader
       :title="t('PRODUCT_CATALOG.TITLE')"
       :description="t('PRODUCT_CATALOG.DESCRIPTION')"
-      icon-name="i-lucide-shopping-bag"
     />
     <div class="mt-6 w-full h-[calc(100vh-200px)] min-h-[600px]">
       <iframe
