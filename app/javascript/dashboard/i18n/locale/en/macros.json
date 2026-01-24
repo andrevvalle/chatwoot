@@ -73,7 +73,17 @@
     "EXECUTE": {
       "BUTTON_TOOLTIP": "Execute",
       "PREVIEW": "Preview Macro",
-      "EXECUTED_SUCCESSFULLY": "Macro executed successfully"
+      "EXECUTED_SUCCESSFULLY": "Macro executed successfully",
+      "CONFIRM": {
+        "TITLE": "Execute Macro",
+        "MESSAGE": "Are you sure you want to execute",
+        "YES": "Yes, Execute",
+        "NO": "Cancel"
+      }
+    },
+    "REORDER": {
+      "ENABLE": "Reorder macros",
+      "DONE": "Done reordering"
     },
     "ERRORS": {
       "ATTRIBUTE_KEY_REQUIRED": "Attribute key is required",

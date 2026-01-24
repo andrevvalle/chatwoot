@@ -623,15 +623,15 @@ export default {
 
 <style scoped lang="scss">
 .modal-mask {
-  @apply fixed;
+  @apply fixed inset-0 z-50 bg-n-background flex flex-col justify-end;
 
   &::v-deep {
     .ProseMirror-woot-style {
-      @apply max-h-[25rem];
+      @apply max-h-[calc(100vh-10rem)] md:max-h-[25rem];
     }
 
     .reply-box {
-      @apply border border-n-weak max-w-[75rem] w-[70%];
+      @apply border border-n-weak w-full h-full md:max-w-[75rem] md:w-[70%] md:h-auto m-0 rounded-none md:rounded-xl;
 
       &.is-private {
         @apply dark:border-n-amber-3/30 border-n-amber-12/5;
@@ -639,11 +639,11 @@ export default {
     }
 
     .reply-box .reply-box__top {
-      @apply relative min-h-[27.5rem];
+      @apply relative min-h-[calc(100vh-12rem)] md:min-h-[27.5rem];
     }
 
     .reply-box__top .input {
-      @apply min-h-[27.5rem];
+      @apply min-h-[calc(100vh-12rem)] md:min-h-[27.5rem];
     }
 
     .emoji-dialog {

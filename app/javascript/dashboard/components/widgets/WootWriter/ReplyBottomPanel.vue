@@ -13,10 +13,11 @@ import AIAssistanceButton from '../AIAssistanceButton.vue';
 import { INBOX_TYPES } from 'dashboard/helper/inbox';
 import { mapGetters } from 'vuex';
 import NextButton from 'dashboard/components-next/button/Button.vue';
+import MacrosList from 'dashboard/routes/dashboard/conversation/Macros/List.vue';
 
 export default {
   name: 'ReplyBottomPanel',
-  components: { NextButton, FileUpload, VideoCallButton, AIAssistanceButton },
+  components: { NextButton, FileUpload, VideoCallButton, AIAssistanceButton, MacrosList },
   mixins: [inboxMixin],
   props: {
     isNote: {
@@ -163,6 +164,7 @@ export default {
   data() {
     return {
       ALLOWED_FILE_TYPES,
+      showMacrosPopover: false,
     };
   },
   computed: {
@@ -253,6 +255,12 @@ export default {
     isFetchingAppIntegrations() {
       return this.uiFlags.isFetching;
     },
+    showMacrosButton() {
+      return this.isFeatureEnabledonAccount(
+        this.accountId,
+        FEATURE_FLAGS.MACROS
+      );
+    },
     quotedReplyToggleTooltip() {
       return this.quotedReplyEnabled
         ? this.$t('CONVERSATION.REPLYBOX.QUOTED_REPLY.DISABLE_TOOLTIP')
@@ -271,6 +279,12 @@ export default {
     },
     toggleInsertArticle() {
       this.$emit('toggleInsertArticle');
+    },
+    toggleMacrosPopover() {
+      this.showMacrosPopover = !this.showMacrosPopover;
+    },
+    closeMacrosPopover() {
+      this.showMacrosPopover = false;
     },
   },
 };
@@ -338,6 +352,23 @@ export default {
         sm
         @click="toggleMessageSignature"
       />
+      <div v-if="showMacrosButton" class="relative">
+        <NextButton
+          v-tooltip.top-end="$t('CONVERSATION.FOOTER.MACROS')"
+          icon="i-ph-lightning"
+          :color="showMacrosPopover ? 'blue' : 'slate'"
+          faded
+          sm
+          @click="toggleMacrosPopover"
+        />
+        <div
+          v-if="showMacrosPopover"
+          v-on-clickaway="closeMacrosPopover"
+          class="fixed bottom-20 ltr:left-4 ltr:right-4 rtl:left-4 rtl:right-4 md:absolute md:bottom-10 md:ltr:left-0 md:ltr:right-auto md:rtl:right-0 md:rtl:left-auto md:w-72 z-50 bg-n-solid-2 border border-n-weak rounded-lg shadow-lg max-h-64 overflow-y-auto"
+        >
+          <MacrosList :conversation-id="conversationId" />
+        </div>
+      </div>
       <NextButton
         v-if="showQuotedReplyToggle"
         v-tooltip.top-end="quotedReplyToggleTooltip"

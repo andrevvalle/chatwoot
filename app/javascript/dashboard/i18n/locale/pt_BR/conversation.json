@@ -188,7 +188,8 @@
       "PRIVATE_MSG_INPUT": "A mensagem será visível apenas para agentes",
       "MESSAGE_SIGNATURE_NOT_CONFIGURED": "A assinatura da mensagem não está configurada. Por favor, configure-a nas configurações do perfil.",
       "CLICK_HERE": "Clique aqui para atualizar",
-      "WHATSAPP_TEMPLATES": "Templates do Whatsapp"
+      "WHATSAPP_TEMPLATES": "Templates do Whatsapp",
+      "MACROS": "Funções prontas"
     },
     "REPLYBOX": {
       "REPLY": "Responder",
@@ -346,7 +347,7 @@
       "CONTACT_NOTES": "Notas do contato",
       "CONTACT_ATTRIBUTES": "Atributos do contato",
       "PREVIOUS_CONVERSATION": "Conversas anteriores",
-      "MACROS": "Macros",
+      "MACROS": "Funções prontas",
       "LINEAR_ISSUES": "Problemas do Linear vinculados",
       "SHOPIFY_ORDERS": "Shopify Orders"
     },

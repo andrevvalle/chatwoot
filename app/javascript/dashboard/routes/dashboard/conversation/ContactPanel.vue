@@ -145,6 +145,7 @@ onMounted(() => {
         handle=".drag-handle"
         item-key="name"
         class="flex flex-col gap-3"
+        :disabled="true"
         @start="dragging = true"
         @end="onDragEnd"
       >

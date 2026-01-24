@@ -21,6 +21,11 @@ const { accountScopedUrl } = useAccount();
 const { uiSettings, updateUISettings } = useUISettings();
 
 const dragging = ref(false);
+const isReorderMode = ref(false);
+
+const toggleReorderMode = () => {
+  isReorderMode.value = !isReorderMode.value;
+};
 
 const macros = useMapGetter('macros/getMacros');
 const uiFlags = useMapGetter('macros/getUIFlags');
@@ -88,25 +93,36 @@ onMounted(() => {
       <span class="text-sm">{{ $t('MACROS.LOADING') }}</span>
       <Spinner class="size-5" />
     </div>
-    <Draggable
-      v-if="!uiFlags.isFetching && macros.length"
-      v-model="orderedMacros"
-      class="p-1"
-      animation="200"
-      ghost-class="ghost"
-      handle=".drag-handle"
-      item-key="id"
-      @start="dragging = true"
-      @end="onDragEnd"
-    >
-      <template #item="{ element }">
-        <MacroItem
-          :key="element.id"
-          :macro="element"
-          :conversation-id="conversationId"
-        />
-      </template>
-    </Draggable>
+    <div v-if="!uiFlags.isFetching && macros.length">
+      <Draggable
+        v-model="orderedMacros"
+        class="p-1"
+        animation="200"
+        ghost-class="ghost"
+        handle=".drag-handle"
+        item-key="id"
+        :disabled="!isReorderMode"
+        @start="dragging = true"
+        @end="onDragEnd"
+      >
+        <template #item="{ element }">
+          <MacroItem
+            :key="element.id"
+            :macro="element"
+            :conversation-id="conversationId"
+            :is-reorder-mode="isReorderMode"
+          />
+        </template>
+      </Draggable>
+      <div class="flex justify-center py-2">
+        <button
+          class="text-xs text-n-blue-text hover:underline"
+          @click="toggleReorderMode"
+        >
+          {{ isReorderMode ? $t('MACROS.REORDER.DONE') : $t('MACROS.REORDER.ENABLE') }}
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 

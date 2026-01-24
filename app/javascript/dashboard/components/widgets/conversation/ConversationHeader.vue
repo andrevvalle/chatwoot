@@ -95,10 +95,10 @@ const hasSlaPolicyId = computed(() => props.chat?.sla_policy_id);
 <template>
   <div
     ref="conversationHeader"
-    class="flex flex-col gap-3 items-center justify-between flex-1 w-full min-w-0 xl:flex-row px-3 py-2 border-b bg-n-background border-n-weak h-24 xl:h-12"
+    class="flex flex-row items-center justify-between flex-1 w-full min-w-0 px-3 py-2 border-b bg-n-background border-n-weak h-12"
   >
     <div
-      class="flex items-center justify-start w-full xl:w-auto max-w-full min-w-0 xl:flex-1"
+      class="flex items-center justify-start max-w-full min-w-0 flex-1"
     >
       <BackButton
         v-if="showBackButton"
@@ -142,7 +142,7 @@ const hasSlaPolicyId = computed(() => props.chat?.sla_policy_id);
       </div>
     </div>
     <div
-      class="flex flex-row items-center justify-start xl:justify-end flex-shrink-0 gap-2 w-full xl:w-auto header-actions-wrap"
+      class="flex flex-row items-center justify-end flex-shrink-0 gap-2 header-actions-wrap"
     >
       <SLACardLabel
         v-if="hasSlaPolicyId"

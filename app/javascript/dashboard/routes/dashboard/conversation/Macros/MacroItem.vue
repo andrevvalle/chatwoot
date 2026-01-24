@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAlert } from 'dashboard/composables';
 import { useStore } from 'dashboard/composables/store';
@@ -18,6 +18,10 @@ const props = defineProps({
     type: [Number, String],
     required: true,
   },
+  isReorderMode: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const store = useStore();
@@ -25,12 +29,24 @@ const { t } = useI18n();
 
 const isExecuting = ref(false);
 const showPreview = ref(false);
+const confirmDialog = ref(null);
 
-const executeMacro = async macro => {
+const confirmDescription = computed(
+  () => `${t('MACROS.EXECUTE.CONFIRM.MESSAGE')} "${props.macro.name}"?`
+);
+
+const onExecuteClick = async () => {
+  const confirmed = await confirmDialog.value.showConfirmation();
+  if (confirmed) {
+    executeMacro();
+  }
+};
+
+const executeMacro = async () => {
   try {
     isExecuting.value = true;
     await store.dispatch('macros/execute', {
-      macroId: macro.id,
+      macroId: props.macro.id,
       conversationIds: [props.conversationId],
     });
     useTrack(CONVERSATION_EVENTS.EXECUTED_A_MACRO);
@@ -54,7 +70,10 @@ const closeMacroPreview = () => {
 <template>
   <div
     class="relative flex items-center justify-between leading-4 rounded-md h-10 pl-3 pr-2"
-    :class="showPreview ? 'cursor-default' : 'drag-handle cursor-grab'"
+    :class="{
+      'drag-handle cursor-grab': isReorderMode && !showPreview,
+      'cursor-default': showPreview || !isReorderMode,
+    }"
   >
     <span
       class="overflow-hidden whitespace-nowrap text-ellipsis font-medium text-n-slate-12"
@@ -77,7 +96,7 @@ const closeMacroPreview = () => {
         faded
         xs
         :is-loading="isExecuting"
-        @click="executeMacro(macro)"
+        @click="onExecuteClick"
       />
     </div>
     <transition name="menu-slide">
@@ -87,5 +106,12 @@ const closeMacroPreview = () => {
         :macro="macro"
       />
     </transition>
+    <woot-confirm-modal
+      ref="confirmDialog"
+      :title="$t('MACROS.EXECUTE.CONFIRM.TITLE')"
+      :description="confirmDescription"
+      :confirm-label="$t('MACROS.EXECUTE.CONFIRM.YES')"
+      :cancel-label="$t('MACROS.EXECUTE.CONFIRM.NO')"
+    />
   </div>
 </template>

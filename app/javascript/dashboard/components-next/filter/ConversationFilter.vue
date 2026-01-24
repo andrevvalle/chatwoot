@@ -105,7 +105,7 @@ const outsideClickHandler = [
 <template>
   <div
     v-on-click-outside="outsideClickHandler"
-    class="z-40 max-w-3xl lg:w-[750px] overflow-visible w-full border border-n-weak bg-n-alpha-3 backdrop-blur-[100px] shadow-lg rounded-xl p-6 grid gap-6"
+    class="z-40 fixed md:absolute left-3 right-3 top-14 md:inset-auto md:max-w-3xl lg:w-[750px] max-h-[calc(100vh-80px)] overflow-y-auto md:overflow-visible md:w-full border border-n-weak bg-n-solid-2 md:bg-n-alpha-3 backdrop-blur-[100px] shadow-lg rounded-xl p-4 md:p-6 grid gap-4 md:gap-6"
   >
     <h3 class="text-base font-medium leading-6 text-n-slate-12">
       {{ filterModalHeaderTitle }}
@@ -146,11 +146,11 @@ const outsideClickHandler = [
         />
       </template>
     </ul>
-    <div class="flex gap-2 justify-between">
+    <div class="flex flex-wrap gap-2 justify-between pt-2">
       <Button sm ghost blue @click="addFilter">
         {{ $t('FILTER.ADD_NEW_FILTER') }}
       </Button>
-      <div class="flex gap-2">
+      <div class="flex flex-wrap gap-2">
         <Button sm faded slate @click="resetFilter">
           {{ t('FILTER.CLEAR_BUTTON_LABEL') }}
         </Button>
