@@ -16,7 +16,7 @@ GIT
 GIT
   remote: https://github.com/chatwoot/devise-secure_password
   revision: adcc85fe1babfe40feae73dbcae64d14fff86e69
-  branch: chatwoot
+  ref: adcc85fe1babfe40feae73dbcae64d14fff86e69
   specs:
     devise-secure_password (2.0.1)
       devise (>= 4.0.0, < 5.0.0)
