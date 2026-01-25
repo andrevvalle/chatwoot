@@ -2,6 +2,7 @@
 import { h, computed, onMounted } from 'vue';
 import { provideSidebarContext } from './provider';
 import { useAccount } from 'dashboard/composables/useAccount';
+import { useAdmin } from 'dashboard/composables/useAdmin';
 import { useKbd } from 'dashboard/composables/utils/useKbd';
 import { useMapGetter } from 'dashboard/composables/store';
 import { useStore } from 'vuex';
@@ -37,6 +38,7 @@ const emit = defineEmits([
 ]);
 
 const { accountScopedRoute, isOnChatwootCloud } = useAccount();
+const { isAdmin } = useAdmin();
 const store = useStore();
 const searchShortcut = useKbd([`$mod`, 'k']);
 const { t } = useI18n();
@@ -614,6 +616,12 @@ const menuItems = computed(() => {
         activeOn: ['dashboard_app_view'],
       })),
     });
+  }
+
+  // Hide Captain, Companies and Help Center (Portals) from non-admin users
+  const adminOnlyItems = ['Captain', 'Companies', 'Portals'];
+  if (!isAdmin.value) {
+    return items.filter(item => !adminOnlyItems.includes(item.name));
   }
 
   return items;

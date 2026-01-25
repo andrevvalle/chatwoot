@@ -227,21 +227,24 @@ module Whatsapp::BaileysHandlers::Helpers # rubocop:disable Metrics/ModuleLength
     parts.join("\n")
   end
 
-  def format_quoted_product(quoted_product)
+  def format_quoted_product(quoted_product) # rubocop:disable Metrics/CyclomaticComplexity
     product = quoted_product[:product] || {}
     title = product[:title]
     description = product[:description]
     currency = product[:currencyCode] || 'BRL'
     price_amount = product[:priceAmount1000]
+    retailer_id = product[:retailerId]
 
     parts = ['--- Produto citado ---']
     parts << "📦 *#{title}*" if title.present?
-    parts << description.truncate(100) if description.present?
+    parts << description if description.present?
 
     if price_amount.present? && price_amount.to_i.positive?
       formatted_price = format('%.2f', price_amount.to_f / 1000)
       parts << "💰 #{currency} #{formatted_price}"
     end
+
+    parts << "🏷️ SKU: #{retailer_id}" if retailer_id.present?
 
     parts.join("\n")
   end
