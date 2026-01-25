@@ -11,7 +11,7 @@ ENV PNPM_VERSION=${PNPM_VERSION}
 # For development docker-compose file overrides ARGS
 ARG BUNDLE_WITHOUT="development:test"
 ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT}
-ENV BUNDLER_VERSION=2.5.11
+ENV BUNDLER_VERSION=2.5.16
 
 ARG RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_SERVE_STATIC_FILES ${RAILS_SERVE_STATIC_FILES}
@@ -64,6 +64,7 @@ COPY Gemfile Gemfile.lock ./
 # https://github.com/chatwoot/chatwoot/issues/4045
 RUN apk update && apk add --no-cache build-base musl ruby-full ruby-dev gcc make musl-dev openssl openssl-dev g++ linux-headers xz vips
 RUN bundle config set --local force_ruby_platform true
+RUN bundle config set --local deployment true
 
 # Do not install development or test gems in production
 RUN if [ "$RAILS_ENV" = "production" ]; then \
@@ -105,7 +106,7 @@ ENV PNPM_VERSION=${PNPM_VERSION}
 
 ARG BUNDLE_WITHOUT="development:test"
 ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT}
-ENV BUNDLER_VERSION=2.5.11
+ENV BUNDLER_VERSION=2.5.16
 
 ARG EXECJS_RUNTIME="Disabled"
 ENV EXECJS_RUNTIME ${EXECJS_RUNTIME}
