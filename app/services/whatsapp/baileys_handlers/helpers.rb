@@ -41,6 +41,7 @@ module Whatsapp::BaileysHandlers::Helpers # rubocop:disable Metrics/ModuleLength
 
   def message_type # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength,Metrics/AbcSize
     msg = unwrap_ephemeral_message(@raw_message[:message])
+
     if msg.key?(:conversation) || msg.dig(:extendedTextMessage, :text).present?
       'text'
     elsif msg.key?(:imageMessage)
@@ -60,6 +61,10 @@ module Whatsapp::BaileysHandlers::Helpers # rubocop:disable Metrics/ModuleLength
     elsif msg.key?(:contactMessage)
       match_phone_number = msg.dig(:contactMessage, :vcard)&.match(/waid=(\d+)/)
       match_phone_number ? 'contact' : 'unsupported'
+    elsif msg.key?(:productMessage)
+      'product'
+    elsif msg.key?(:locationMessage)
+      'location'
     elsif msg.key?(:protocolMessage)
       'protocol'
     elsif msg.key?(:messageContextInfo) && msg.keys.count == 1
@@ -69,11 +74,17 @@ module Whatsapp::BaileysHandlers::Helpers # rubocop:disable Metrics/ModuleLength
     end
   end
 
-  def message_content # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
+  def message_content # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength,Metrics/AbcSize
     msg = unwrap_ephemeral_message(@raw_message[:message])
     case message_type
     when 'text'
-      msg[:conversation] || msg.dig(:extendedTextMessage, :text)
+      text = msg[:conversation] || msg.dig(:extendedTextMessage, :text)
+      quoted_product = msg.dig(:extendedTextMessage, :contextInfo, :quotedMessage, :productMessage)
+      return text unless quoted_product
+
+      # Append quoted product info when replying to a catalog product
+      product_info = format_quoted_product(quoted_product)
+      "#{text}\n\n#{product_info}"
     when 'image'
       msg.dig(:imageMessage, :caption)
     when 'video'
@@ -93,6 +104,10 @@ module Whatsapp::BaileysHandlers::Helpers # rubocop:disable Metrics/ModuleLength
       return match_phone_number[1] if display_name&.start_with?('+')
 
       "#{display_name} - #{match_phone_number[1]}" if match_phone_number
+    when 'product'
+      format_product_message(msg)
+    when 'location'
+      format_location_message(msg)
     end
   end
 
@@ -172,6 +187,63 @@ module Whatsapp::BaileysHandlers::Helpers # rubocop:disable Metrics/ModuleLength
   def ignore_message?
     message_type.in?(%w[protocol context edited]) ||
       (message_type == 'reaction' && message_content.blank?)
+  end
+
+  def format_product_message(msg) # rubocop:disable Metrics/CyclomaticComplexity
+    product = msg.dig(:productMessage, :product) || {}
+    body = msg.dig(:productMessage, :body)
+
+    title = product[:title]
+    description = product[:description]
+    price_amount = product[:priceAmount1000]
+    currency = product[:currencyCode] || 'BRL'
+
+    parts = []
+    parts << "📦 *#{title}*" if title.present?
+    parts << description if description.present?
+
+    if price_amount.present? && price_amount.positive?
+      formatted_price = format('%.2f', price_amount.to_f / 1000)
+      parts << "💰 #{currency} #{formatted_price}"
+    end
+
+    parts << "\n💬 #{body}" if body.present?
+
+    parts.join("\n")
+  end
+
+  def format_location_message(msg)
+    location = msg[:locationMessage] || {}
+    lat = location[:degreesLatitude]
+    lng = location[:degreesLongitude]
+    name = location[:name]
+    address = location[:address]
+
+    parts = []
+    parts << "📍 *#{name}*" if name.present?
+    parts << address if address.present?
+    parts << "https://maps.google.com/?q=#{lat},#{lng}" if lat && lng
+
+    parts.join("\n")
+  end
+
+  def format_quoted_product(quoted_product)
+    product = quoted_product[:product] || {}
+    title = product[:title]
+    description = product[:description]
+    currency = product[:currencyCode] || 'BRL'
+    price_amount = product[:priceAmount1000]
+
+    parts = ['--- Produto citado ---']
+    parts << "📦 *#{title}*" if title.present?
+    parts << description.truncate(100) if description.present?
+
+    if price_amount.present? && price_amount.to_i.positive?
+      formatted_price = format('%.2f', price_amount.to_f / 1000)
+      parts << "💰 #{currency} #{formatted_price}"
+    end
+
+    parts.join("\n")
   end
 
   def fetch_profile_picture_url(phone_number)
