@@ -65,6 +65,8 @@ module Whatsapp::BaileysHandlers::Helpers # rubocop:disable Metrics/ModuleLength
       'product'
     elsif msg.key?(:locationMessage)
       'location'
+    elsif msg.key?(:orderMessage)
+      'order'
     elsif msg.key?(:protocolMessage)
       'protocol'
     elsif msg.key?(:messageContextInfo) && msg.keys.count == 1
@@ -108,6 +110,8 @@ module Whatsapp::BaileysHandlers::Helpers # rubocop:disable Metrics/ModuleLength
       format_product_message(msg)
     when 'location'
       format_location_message(msg)
+    when 'order'
+      format_order_message(msg)
     end
   end
 
@@ -223,6 +227,31 @@ module Whatsapp::BaileysHandlers::Helpers # rubocop:disable Metrics/ModuleLength
     parts << "📍 *#{name}*" if name.present?
     parts << address if address.present?
     parts << "https://maps.google.com/?q=#{lat},#{lng}" if lat && lng
+
+    parts.join("\n")
+  end
+
+  def format_order_message(msg) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/AbcSize,Metrics/PerceivedComplexity
+    order = msg[:orderMessage] || {}
+    order_id = order[:orderId]
+    order_title = order[:orderTitle]
+    item_count = order[:itemCount]
+    currency = order[:totalCurrencyCode] || 'BRL'
+    total_amount = order[:totalAmount1000]
+
+    parts = ['🛒 *Pedido recebido*']
+    parts << "🏪 #{order_title}" if order_title.present?
+    parts << "📦 #{item_count} item(ns)" if item_count.present? && item_count.positive?
+
+    if total_amount.present?
+      amount = total_amount.is_a?(Hash) ? total_amount[:low] : total_amount
+      if amount.to_i.positive?
+        formatted_price = format('%.2f', amount.to_f / 1000)
+        parts << "💰 #{currency} #{formatted_price}"
+      end
+    end
+
+    parts << "🔗 Pedido ##{order_id}" if order_id.present?
 
     parts.join("\n")
   end
