@@ -1,5 +1,4 @@
 <script setup>
-// [TODO] Use Teleport to move the modal to the end of the body
 import { ref, computed, defineEmits, onMounted } from 'vue';
 import { useEventListener } from '@vueuse/core';
 import Button from 'dashboard/components-next/button/Button.vue';
@@ -68,36 +67,38 @@ onMounted(() => {
 </script>
 
 <template>
-  <transition name="modal-fade">
-    <div
-      v-if="show"
-      :class="modalClassName"
-      transition="modal"
-      @mousedown="handleMouseDown"
-    >
+  <Teleport to="body">
+    <transition name="modal-fade">
       <div
-        class="relative max-h-full overflow-auto bg-n-alpha-3 shadow-md modal-container rtl:text-right skip-context-menu"
-        :class="{
-          'rounded-xl w-[37.5rem]': !fullWidth,
-          'items-center rounded-none flex h-full justify-center w-full':
-            fullWidth,
-          [size]: true,
-        }"
-        @mouse.stop
-        @mousedown="event => event.stopPropagation()"
+        v-if="show"
+        :class="modalClassName"
+        transition="modal"
+        @mousedown="handleMouseDown"
       >
-        <Button
-          v-if="showCloseButton"
-          ghost
-          slate
-          icon="i-lucide-x"
-          class="absolute z-10 ltr:right-2 rtl:left-2 top-2"
-          @click="close"
-        />
-        <slot />
+        <div
+          class="relative max-h-full overflow-auto bg-n-alpha-3 shadow-md modal-container rtl:text-right skip-context-menu"
+          :class="{
+            'rounded-xl w-[37.5rem]': !fullWidth,
+            'items-center rounded-none flex h-full justify-center w-full':
+              fullWidth,
+            [size]: true,
+          }"
+          @mouse.stop
+          @mousedown="event => event.stopPropagation()"
+        >
+          <Button
+            v-if="showCloseButton"
+            ghost
+            slate
+            icon="i-lucide-x"
+            class="absolute z-10 ltr:right-2 rtl:left-2 top-2"
+            @click="close"
+          />
+          <slot />
+        </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </Teleport>
 </template>
 
 <style lang="scss">

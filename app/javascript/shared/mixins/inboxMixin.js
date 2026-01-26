@@ -30,16 +30,16 @@ export const INBOX_FEATURE_MAP = {
 export default {
   computed: {
     channelType() {
-      return this.inbox.channel_type;
+      return this.inbox?.channel_type;
     },
     whatsAppAPIProvider() {
-      return this.inbox.provider || '';
+      return this.inbox?.provider || '';
     },
     isAMicrosoftInbox() {
-      return this.isAnEmailChannel && this.inbox.provider === 'microsoft';
+      return this.isAnEmailChannel && this.inbox?.provider === 'microsoft';
     },
     isAGoogleInbox() {
-      return this.isAnEmailChannel && this.inbox.provider === 'google';
+      return this.isAnEmailChannel && this.inbox?.provider === 'google';
     },
     isAPIInbox() {
       return this.channelType === INBOX_TYPES.API;
@@ -69,14 +69,14 @@ export default {
       return this.channelType === INBOX_TYPES.TELEGRAM;
     },
     isATwilioSMSChannel() {
-      const { medium: medium = '' } = this.inbox;
+      const { medium: medium = '' } = this.inbox || {};
       return this.isATwilioChannel && medium === 'sms';
     },
     isASmsInbox() {
       return this.channelType === INBOX_TYPES.SMS || this.isATwilioSMSChannel;
     },
     isATwilioWhatsAppChannel() {
-      const { medium: medium = '' } = this.inbox;
+      const { medium: medium = '' } = this.inbox || {};
       return this.isATwilioChannel && medium === 'whatsapp';
     },
     isAWhatsAppCloudChannel() {

@@ -257,6 +257,10 @@ export default {
       return MESSAGE_MAX_LENGTH.GENERAL;
     },
     showFileUpload() {
+      // Show buttons by default while inbox is loading
+      if (!this.channelType) {
+        return true;
+      }
       return (
         this.isAWebWidgetInbox ||
         this.isAFacebookInbox ||
