@@ -90,6 +90,18 @@ const replyToPreview = computed(() => {
 
   return t('CONVERSATION.REPLY_MESSAGE_NOT_FOUND');
 });
+
+const replyToImage = computed(() => {
+  if (!inReplyTo?.value?.attachments?.length) return null;
+
+  const firstAttachment = inReplyTo.value.attachments[0];
+  const fileType = firstAttachment.fileType ?? firstAttachment.file_type;
+
+  if (fileType === 'image') {
+    return firstAttachment.thumb_url || firstAttachment.data_url;
+  }
+  return null;
+});
 </script>
 
 <template>
@@ -104,9 +116,15 @@ const replyToPreview = computed(() => {
   >
     <div
       v-if="inReplyTo"
-      class="p-2 -mx-1 mb-2 rounded-lg cursor-pointer bg-n-alpha-black1"
+      class="p-2 -mx-1 mb-2 rounded-lg cursor-pointer bg-n-alpha-black1 flex items-center gap-2"
       @click="scrollToMessage"
     >
+      <img
+        v-if="replyToImage"
+        :src="replyToImage"
+        class="w-10 h-10 object-cover rounded flex-shrink-0"
+        alt=""
+      />
       <span class="break-all line-clamp-2">
         {{ replyToPreview }}
       </span>
