@@ -289,7 +289,11 @@ export default {
     toggleMacrosPopover() {
       this.showMacrosPopover = !this.showMacrosPopover;
     },
-    closeMacrosPopover() {
+    closeMacrosPopover(event) {
+      // Don't close if clicking inside a modal (Teleported to body)
+      if (event?.target?.closest('.modal-mask')) {
+        return;
+      }
       this.showMacrosPopover = false;
     },
   },
