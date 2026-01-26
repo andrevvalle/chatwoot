@@ -17,7 +17,13 @@ import MacrosList from 'dashboard/routes/dashboard/conversation/Macros/List.vue'
 
 export default {
   name: 'ReplyBottomPanel',
-  components: { NextButton, FileUpload, VideoCallButton, AIAssistanceButton, MacrosList },
+  components: {
+    NextButton,
+    FileUpload,
+    VideoCallButton,
+    AIAssistanceButton,
+    MacrosList,
+  },
   mixins: [inboxMixin],
   props: {
     isNote: {
@@ -294,6 +300,7 @@ export default {
   <div class="flex justify-between p-3" :class="wrapClass">
     <div class="left-wrap">
       <NextButton
+        v-if="!isRecordingAudio"
         v-tooltip.top-end="$t('CONVERSATION.REPLYBOX.TIP_EMOJI_ICON')"
         icon="i-ph-smiley-sticker"
         slate
@@ -302,6 +309,7 @@ export default {
         @click="toggleEmojiPicker"
       />
       <FileUpload
+        v-if="!isRecordingAudio"
         ref="uploadRef"
         v-tooltip.top-end="$t('CONVERSATION.REPLYBOX.TIP_ATTACH_ICON')"
         input-id="conversationAttachment"
@@ -329,7 +337,7 @@ export default {
         v-if="showAudioRecorderButton"
         v-tooltip.top-end="$t('CONVERSATION.REPLYBOX.TIP_AUDIORECORDER_ICON')"
         :icon="!isRecordingAudio ? 'i-ph-microphone' : 'i-ph-microphone-slash'"
-        slate
+        :color="isRecordingAudio ? 'ruby' : 'slate'"
         faded
         sm
         @click="toggleAudioRecorder"
@@ -344,7 +352,7 @@ export default {
         @click="toggleAudioRecorderPlayPause"
       />
       <NextButton
-        v-if="showMessageSignatureButton"
+        v-if="showMessageSignatureButton && !isRecordingAudio"
         v-tooltip.top-end="signatureToggleTooltip"
         icon="i-ph-signature"
         :color="sendWithSignature ? 'blue' : 'slate'"
@@ -352,7 +360,7 @@ export default {
         sm
         @click="toggleMessageSignature"
       />
-      <div v-if="showMacrosButton" class="relative">
+      <div v-if="showMacrosButton && !isRecordingAudio" class="relative">
         <NextButton
           v-tooltip.top-end="$t('CONVERSATION.FOOTER.MACROS')"
           icon="i-ph-lightning"
@@ -370,7 +378,7 @@ export default {
         </div>
       </div>
       <NextButton
-        v-if="showQuotedReplyToggle"
+        v-if="showQuotedReplyToggle && !isRecordingAudio"
         v-tooltip.top-end="quotedReplyToggleTooltip"
         icon="i-ph-quotes"
         :variant="quotedReplyEnabled ? 'solid' : 'faded'"
@@ -380,7 +388,7 @@ export default {
         @click="$emit('toggleQuotedReply')"
       />
       <NextButton
-        v-if="enableWhatsAppTemplates"
+        v-if="enableWhatsAppTemplates && !isRecordingAudio"
         v-tooltip.top-end="$t('CONVERSATION.FOOTER.WHATSAPP_TEMPLATES')"
         icon="i-ph-whatsapp-logo"
         slate
@@ -389,7 +397,7 @@ export default {
         @click="$emit('selectWhatsappTemplate')"
       />
       <NextButton
-        v-if="enableContentTemplates"
+        v-if="enableContentTemplates && !isRecordingAudio"
         v-tooltip.top-end="'Content Templates'"
         icon="i-ph-whatsapp-logo"
         slate
@@ -398,11 +406,15 @@ export default {
         @click="$emit('selectContentTemplate')"
       />
       <VideoCallButton
-        v-if="(isAWebWidgetInbox || isAPIInbox) && !isOnPrivateNote"
+        v-if="
+          (isAWebWidgetInbox || isAPIInbox) &&
+          !isOnPrivateNote &&
+          !isRecordingAudio
+        "
         :conversation-id="conversationId"
       />
       <AIAssistanceButton
-        v-if="!isFetchingAppIntegrations"
+        v-if="!isFetchingAppIntegrations && !isRecordingAudio"
         :conversation-id="conversationId"
         :is-private-note="isOnPrivateNote"
         :message="message"
@@ -420,7 +432,7 @@ export default {
         </div>
       </transition>
       <NextButton
-        v-if="enableInsertArticleInReply"
+        v-if="enableInsertArticleInReply && !isRecordingAudio"
         v-tooltip.top-end="$t('HELP_CENTER.ARTICLE_SEARCH.OPEN_ARTICLE_SEARCH')"
         icon="i-ph-article-ny-times"
         slate
@@ -431,14 +443,16 @@ export default {
     </div>
     <div class="right-wrap">
       <NextButton
-        :label="sendButtonText"
+        icon="i-lucide-send"
         type="submit"
         sm
         :color="isNote ? 'amber' : 'blue'"
         :disabled="isSendDisabled"
         class="flex-shrink-0"
         @click="onSend"
-      />
+      >
+        <span class="hidden sm:inline">{{ sendButtonText }}</span>
+      </NextButton>
     </div>
   </div>
 </template>
