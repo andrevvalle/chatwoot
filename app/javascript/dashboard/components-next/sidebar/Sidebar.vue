@@ -67,6 +67,10 @@ const expandedItem = useStorage(
 );
 
 const setExpandedItem = name => {
+  // Never collapse Conversation menu - it should always stay expanded when clicked
+  if (expandedItem.value === name && name === 'Conversation') {
+    return;
+  }
   expandedItem.value = expandedItem.value === name ? null : name;
 };
 provideSidebarContext({
